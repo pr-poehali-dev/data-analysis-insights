@@ -22,10 +22,10 @@ const HeroSection = () => {
   }, []);
 
   const stats = [
-    { icon: <Play className="w-6 h-6" />, label: "Продано битов", value: "500+" },
-    { icon: <Disc3 className="w-6 h-6" />, label: "Уникальных треков", value: "1000+" },
-    { icon: <Music2 className="w-6 h-6" />, label: "Довольных артистов", value: "200+" },
-    { icon: <AudioWaveform className="w-6 h-6" />, label: "Жанров", value: "10+" },
+    { icon: <Play className="w-6 h-6" />, label: "Треков выпущено", value: "50+" },
+    { icon: <Disc3 className="w-6 h-6" />, label: "Стримов", value: "1M+" },
+    { icon: <Music2 className="w-6 h-6" />, label: "Жанров", value: "3+" },
+    { icon: <AudioWaveform className="w-6 h-6" />, label: "Лет в музыке", value: "5+" },
   ];
 
   return (
@@ -42,12 +42,15 @@ const HeroSection = () => {
           <div className="text-center mb-16 animate-fade-in">
             <h1 className="text-6xl md:text-8xl font-bold mb-6 tracking-tight relative">
               <span className="bg-clip-text text-transparent bg-gradient-to-r from-white to-zinc-500">
-                Подними свой звук
+                AXEL
               </span>
             </h1>
-            <p className="text-xl md:text-2xl mb-8 text-zinc-400 max-w-3xl mx-auto">
-              Создаю уникальные биты, которые помогут артистам выделиться. От трэпа до лоу-фай — найди
-              свой идеальный звук и выведи музыку на новый уровень.
+            <p className="text-xl md:text-2xl mb-4 text-zinc-300 max-w-3xl mx-auto font-medium tracking-widest uppercase">
+              Rap · Hip-Hop · J-Pop
+            </p>
+            <p className="text-lg md:text-xl mb-8 text-zinc-400 max-w-2xl mx-auto">
+              Музыкальный исполнитель, создающий треки на стыке уличной энергии и японской эстетики.
+              Каждая песня — это история.
             </p>
             <div className="relative inline-block">
               <Button
@@ -57,8 +60,8 @@ const HeroSection = () => {
                 onMouseLeave={() => setIsHovered(false)}
                 asChild
               >
-                <a href="#" target="_blank" rel="noopener noreferrer">
-                  <span className="relative z-10">Слушать биты</span>
+                <a href="#tracks">
+                  <span className="relative z-10">Слушать музыку</span>
                   <span
                     className={`ml-2 relative z-10 transition-transform duration-200 ${
                       isHovered ? "translate-x-1" : ""

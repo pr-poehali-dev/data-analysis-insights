@@ -1,72 +1,50 @@
 import { useState, useRef, useEffect } from "react";
-import { Check, X, Crown, Zap, Star, Globe } from "lucide-react";
+import { Music2, Mic2, Headphones, Radio } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 
-interface LicenseOption {
+interface GenreCard {
   name: string;
-  price: string;
+  description: string;
   icon: React.ReactNode;
-  features: string[];
-  notIncluded?: string[];
-  bulkDeal?: string;
-  popular?: boolean;
+  tags: string[];
+  mood: string;
+  featured?: boolean;
 }
 
-const licenseOptions: LicenseOption[] = [
+const genres: GenreCard[] = [
   {
-    name: "Стандартная лицензия",
-    price: "299 руб",
-    icon: <Star className="w-6 h-6" />,
-    features: [
-      "Использование для записи музыки",
-      "Распространение до 5 000 копий",
-      "75 000 онлайн-прослушиваний",
-      "1 музыкальный клип",
-      "Коммерческие выступления",
-      "Радиотрансляция (2 станции)",
-    ],
-    bulkDeal: "КУПИ 1 ТРЕК — ПОЛУЧИ 1 В ПОДАРОК!",
+    name: "Rap",
+    description:
+      "Острые тексты, сильный флоу и честность — это основа. Каждый трек — это послание, рассказ из реальной жизни.",
+    icon: <Mic2 className="w-6 h-6" />,
+    tags: ["Freestyle", "Storytelling", "Bars"],
+    mood: "Уличная энергия",
   },
   {
-    name: "Продвинутая лицензия",
-    price: "499 руб",
-    icon: <Zap className="w-6 h-6" />,
-    features: [
-      "Использование для записи музыки",
-      "Распространение до 10 000 копий",
-      "150 000 онлайн-прослушиваний",
-      "1 музыкальный клип",
-      "Коммерческие выступления",
-      "Радиотрансляция (без ограничений)",
-    ],
-    popular: true,
+    name: "Hip-Hop",
+    description:
+      "Тяжёлые биты, атмосферные сэмплы и культурный контекст. Музыка, которая двигает и вдохновляет.",
+    icon: <Music2 className="w-6 h-6" />,
+    tags: ["Beats", "Culture", "Vibe"],
+    mood: "Глубокий грув",
+    featured: true,
   },
   {
-    name: "Премиум лицензия",
-    price: "799 руб",
-    icon: <Crown className="w-6 h-6" />,
-    features: [
-      "Использование для записи музыки",
-      "Распространение до 20 000 копий",
-      "500 000 онлайн-прослушиваний",
-      "1 музыкальный клип",
-      "Только некоммерческие выступления",
-    ],
-    notIncluded: ["Без прав на радиотрансляцию"],
+    name: "J-Pop",
+    description:
+      "Яркие мелодии, эмоциональные крючки и японская эстетика. Красота в каждой ноте.",
+    icon: <Headphones className="w-6 h-6" />,
+    tags: ["Melody", "Aesthetic", "Pop"],
+    mood: "Лёгкость и эмоции",
   },
   {
-    name: "Коммерческая лицензия",
-    price: "899 руб",
-    icon: <Globe className="w-6 h-6" />,
-    features: [
-      "Использование для записи музыки",
-      "Неограниченное распространение",
-      "Неограниченные онлайн-прослушивания",
-      "Неограниченное количество клипов",
-      "Коммерческие выступления",
-      "Радиотрансляция (без ограничений)",
-    ],
+    name: "Other",
+    description:
+      "Не ограничиваю себя рамками. Экспериментирую с жанрами, ищу новые звуки и создаю уникальное звучание.",
+    icon: <Radio className="w-6 h-6" />,
+    tags: ["Fusion", "Experiment", "Unique"],
+    mood: "Без границ",
   },
 ];
 
@@ -93,7 +71,7 @@ const LicenseSection = () => {
   }, []);
 
   return (
-    <section ref={ref} id="licenses" className="py-20 relative overflow-hidden">
+    <section ref={ref} id="tracks" className="py-20 relative overflow-hidden">
       <div className="absolute inset-0 bg-gradient-to-b from-black via-zinc-900/20 to-black"></div>
 
       <div className="container mx-auto px-4 relative">
@@ -102,17 +80,16 @@ const LicenseSection = () => {
             isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-5"
           }`}
         >
-          <h2 className="text-5xl md:text-6xl font-bold mb-6 text-white">Выбери свою лицензию</h2>
+          <h2 className="text-5xl md:text-6xl font-bold mb-6 text-white">Моя музыка</h2>
           <p className="text-xl text-zinc-400 max-w-2xl mx-auto">
-            Подбери идеальную лицензию под свои потребности и начни создавать потрясающую музыку уже
-            сегодня
+            Создаю треки на стыке жанров — от уличного рэпа до японской поп-культуры
           </p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-          {licenseOptions.map((option, index) => (
+          {genres.map((genre, index) => (
             <div
-              key={option.name}
+              key={genre.name}
               className={`transition-all duration-500 ${
                 isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-5"
               }`}
@@ -129,10 +106,10 @@ const LicenseSection = () => {
                   <div className="absolute inset-0 rounded-lg bg-black"></div>
                 </div>
 
-                {option.popular && (
+                {genre.featured && (
                   <div className="absolute -top-4 left-1/2 transform -translate-x-1/2 z-10">
                     <span className="bg-white text-black px-4 py-1 rounded-full text-sm font-semibold animate-pulse">
-                      Популярный
+                      Главный жанр
                     </span>
                   </div>
                 )}
@@ -140,44 +117,31 @@ const LicenseSection = () => {
                 <CardContent className="relative p-6 rounded-lg h-full flex flex-col">
                   <div className="text-center mb-6">
                     <div className="inline-flex p-3 rounded-full bg-zinc-900 border border-white/10 mb-4">
-                      {option.icon}
+                      {genre.icon}
                     </div>
-                    <h3 className="text-xl font-bold mb-2 text-white">{option.name}</h3>
-                    <div className="text-3xl font-bold text-white">{option.price}</div>
+                    <h3 className="text-2xl font-bold mb-2 text-white">{genre.name}</h3>
+                    <p className="text-sm text-zinc-500 italic">{genre.mood}</p>
                   </div>
 
                   <div className="flex-grow">
-                    <ul className="space-y-3 mb-6">
-                      {option.features.map((feature, i) => (
-                        <li key={i} className="flex items-start">
-                          <Check className="h-5 w-5 text-white mr-2 shrink-0 mt-0.5" />
-                          <span className="text-sm text-zinc-300">{feature}</span>
-                        </li>
+                    <p className="text-sm text-zinc-300 mb-4 leading-relaxed">{genre.description}</p>
+                    <div className="flex flex-wrap gap-2">
+                      {genre.tags.map((tag) => (
+                        <span
+                          key={tag}
+                          className="text-xs px-2 py-1 rounded-full bg-white/5 border border-white/10 text-zinc-400"
+                        >
+                          #{tag}
+                        </span>
                       ))}
-                      {option.notIncluded?.map((feature, i) => (
-                        <li key={i} className="flex items-start text-zinc-500">
-                          <X className="h-5 w-5 text-zinc-500 mr-2 shrink-0 mt-0.5" />
-                          <span className="text-sm">{feature}</span>
-                        </li>
-                      ))}
-                    </ul>
+                    </div>
                   </div>
 
-                  {option.bulkDeal && (
-                    <div className="mb-4">
-                      <p className="text-sm font-semibold text-white bg-white/5 py-2 px-3 rounded-lg border border-white/10 animate-pulse">
-                        {option.bulkDeal}
-                      </p>
-                    </div>
-                  )}
-
                   <Button
-                    className="w-full bg-white text-black hover:bg-zinc-200 transition-colors"
+                    className="w-full mt-6 bg-white text-black hover:bg-zinc-200 transition-colors"
                     asChild
                   >
-                    <a href="#" target="_blank" rel="noopener noreferrer">
-                      Выбрать
-                    </a>
+                    <a href="#contact">Связаться</a>
                   </Button>
                 </CardContent>
               </Card>
